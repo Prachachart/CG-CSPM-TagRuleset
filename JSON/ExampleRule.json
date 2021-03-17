@@ -1,0 +1,24 @@
+[
+  {
+    "name": "Accounts - with 'root' in use",
+    "description": "The root account is the most privileged AWS account, it has unrestricted access to all resources in the AWS account. It is highly recommended that the use of this account be avoided. Minimizing the use of this account and adopting the principle of least privilege for access management will reduce the risk of accidental changes and unintended disclosure of highly privileged credentials.",
+    "severity": "High",
+    "logic": "IamUser where name like '%root%' should not have passwordLastUsed after(-90, 'days')",
+    "remediation": "Follow the instructions to ensure IAM policies are attached only to groups or roles recommendation. Reference http://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html",
+    "complianceTag": "IAM",
+    "logicHash": "Jh66QhvchsizYjr/M/FVCg",
+    "ruleId": "D9.AWS.IAM.1001",
+    "category": ""
+  },
+  {
+    "name": "Security Groups - with admin ports too exposed to the public internet",
+    "description": "Security groups provide stateful filtering of ingress/egress network traffic to AWS resources. It is recommended that no security group allows unrestricted ingress access to administrative ports ports.",
+    "severity": "High",
+    "logic": "SecurityGroup should not have inboundRules with [scope =  '0.0.0.0/0' and port in (20, 21, 22, 23, 115, 137, 138, 139, 2049, 3389)]",
+    "remediation": "Delete any rules allowing unrestricted access to administrative ports - see Dome9 documentation on service related alerts: https://dome9-security.atlassian.net/wiki/spaces/DG/pages/71270411/Alerts.\nUse Dome9 Dynamic Access instead: https://dome9-security.atlassian.net/wiki/display/DG/Dynamic+Access+Leasing",
+    "complianceTag": "NetworkSecurity",
+    "logicHash": "/G3+XHTObRWuZ1T4GFxIEQ",
+    "ruleId": "D9.AWS.NET.1007",
+    "category": ""
+  }
+]
