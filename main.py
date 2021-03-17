@@ -26,7 +26,7 @@ with open(jsonPath + '\\' + OriginalFileName) as f:
 print(data)
 
 #Test Print Each Dict
-print(data[0]["name"])
+print(data[0])
 print(data[1])
 
 #Test Print Value in Dict
