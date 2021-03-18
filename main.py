@@ -32,6 +32,10 @@ print(data[1])
 #Test Print Value in Dict
 for i in data:
     print(i["logic"])
+    #split logic string by should
+    logicList = i["logic"].split("should",1)
+    print(logicList[0])
+    print(logicList[1])
     ruleCount += 1
 
 #Test ruleCount
