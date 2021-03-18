@@ -7,58 +7,86 @@
 import json
 import os
 
+#Declare Variable
+#Platform Selectiom 1.AWS 2.Azure 3.GCP
+platform = 1
+
 #Global Variable
 tagKey = 'Name'
 tagValue = 'public-1'
-tagLogic = "( tags contain [ key='" + tagKey + "' ] and tags contain [ value='" + tagValue + "' ] )"
+
+#Setting String to add to GSL depend on platform
+if platform == 1:
+    tagLogic = "( tags contain [ key='" + tagKey + "' ] and tags contain [ value='" + tagValue + "' ] )"
+elif platform == 2:
+    tagLogic = "( tags contain [ key='" + tagKey + "' ] and tags contain [ value='" + tagValue + "' ] )"
+else:
+    tagLogic = "( labels contain [ key='" + tagKey + "' ] and labels contain [ value='" + tagValue + "' ] )"
+
 ruleCount = 0
 
 #Test Print tagLogic
 print(tagLogic)
 
-#FileVariable
+#Path&File_Variable
 jsonPath = r'D:\Python\CG-CSPM-TagRuleset\JSON'
-OriginalFileName = 'ExampleRule.json'
-ExportFileName = 'ExportRule.json'
+OriginalFileName = 'AWS_CG_BestPractice.json'
+OriginalFileNameList = OriginalFileName.split(".",1)
 
+ExportFileName = OriginalFileNameList[0] + "_Tag_" + tagValue + "." + OriginalFileNameList[1]
+print(ExportFileName)
+
+print(jsonPath + '\\' + OriginalFileName)
 
 #Get List of Dictionary -> 1 JSON Object = 1 Dict
-with open(jsonPath + '\\' + OriginalFileName) as f:
+with open(jsonPath + '\\' + OriginalFileName,encoding="utf8") as f:
   data = json.load(f)
 
 #Test Print Whole List of Dict
-print(data)
+#print(data)
 
 #Test Print Each Dict
-print(data[0])
-print(data[1])
+#print(data[0])
+#print(data[1])
+
+NewData = data
 
 #Test Print Value in Dict
 for i in data:
-    print("================================================================================================")
-    print(i["logic"])
+    #print("================================================================================================")
+    #print(i["logic"])
 
     #split logic string by should
     logicList = i["logic"].split("should",1)
-    print(logicList[0])
-    print(logicList[1])
-    ruleCount += 1
+    #print(logicList[0])
+    #print(logicList[1])
+
 
     # If has where in logic
     if 'where' in i["logic"]:
-        print("hasWhere!!!")
+        #print("hasWhere!!!")
         newLogic =  logicList[0] + "and " + tagLogic + " should" + logicList[1]
-        print(newLogic)
+        #print(newLogic)
     # If don't has where in logic
     else:
-        print("noWhere!!!")
+        #print("noWhere!!!")
         newLogic = logicList[0] + "where " + tagLogic + " should" + logicList[1]
-        print(newLogic)
+        #print(newLogic)
+
+    #add newLogic to new Data
+    NewData[ruleCount]["logic"] = newLogic
+    ruleCount += 1
 
 #Test ruleCount
 print("================================================================================================")
 print("Rule Count = " + str(ruleCount))
+print("==========================================Done==================================================")
 
+#print(NewData[0])
+#print(NewData[1])
+
+with open(jsonPath + '\\' + ExportFileName, 'w', encoding='utf-8') as output:
+    json.dump(NewData, output, ensure_ascii=False, indent=4)
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
