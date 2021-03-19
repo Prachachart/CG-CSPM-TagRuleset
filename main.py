@@ -7,7 +7,7 @@
 import json
 
 
-#Declare Variable
+##################################################### Declare Variable #####################################################
 #Platform Selectiom 1.AWS 2.Azure 3.GCP
 platform = 1
 
@@ -25,33 +25,23 @@ else:
 
 ruleCount = 0
 
-#Test Print tagLogic
-print(tagLogic)
-
 #Path&File_Variable
 jsonPath = r'D:\Python\CG-CSPM-TagRuleset\JSON'
 OriginalFileName = 'AWS_CG_BestPractice.json'
 OriginalFileNameList = OriginalFileName.split(".",1)
 
 ExportFileName = OriginalFileNameList[0] + "_Tag_" + tagValue + "." + OriginalFileNameList[1]
-print(ExportFileName)
 
-print(jsonPath + '\\' + OriginalFileName)
+##################################################### Import JSON File #####################################################
 
 #Get List of Dictionary -> 1 JSON Object = 1 Dict
 with open(jsonPath + '\\' + OriginalFileName,encoding="utf8") as f:
   data = json.load(f)
 
-#Test Print Whole List of Dict
-#print(data)
-
-#Test Print Each Dict
-#print(data[0])
-#print(data[1])
-
+#Copy Original JSON to NewData Dictionary
 NewData = data
 
-#Test Print Value in Dict
+#Loop Through JSON Object and add Tag criteria to GSL Logic
 for i in data:
     #print("================================================================================================")
     #print(i["logic"])
@@ -61,14 +51,11 @@ for i in data:
 
     # If has where in logic
     if 'where' in i["logic"]:
-        #print("hasWhere!!!")
         newLogic =  logicList[0] + "and " + tagLogic + " should" + logicList[1]
-        #print(newLogic)
+
     # If don't has where in logic
     else:
-        #print("noWhere!!!")
         newLogic = logicList[0] + "where " + tagLogic + " should" + logicList[1]
-        #print(newLogic)
 
     #add newLogic to new Data
     NewData[ruleCount]["logic"] = newLogic
@@ -79,18 +66,8 @@ print("=========================================================================
 print("Rule Count = " + str(ruleCount))
 print("==========================================Done==================================================")
 
+##################################################### Write to new JSON File #####################################################
 
 with open(jsonPath + '\\' + ExportFileName, 'w', encoding='utf-8') as output:
     json.dump(NewData, output, ensure_ascii=False, indent=4)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-
-# Test Commit
