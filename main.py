@@ -8,7 +8,7 @@ import json
 
 
 ##################################################### Declare Variable #####################################################
-#Platform Selectiom 1.AWS 2.Azure 3.GCP
+#Platform Selection 1.AWS 2.Azure 3.GCP
 platform = 1
 
 #Global Variable
