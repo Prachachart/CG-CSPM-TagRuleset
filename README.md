@@ -26,7 +26,7 @@ Procedure
 Output
 -
 - You will get revise JSON file in same directory that host original JSON file
-- You can copy this JSON to ruleset in Cloudguard CSPM
+- You can copy this JSON to Ruleset in Cloudguard CSPM
 
 Roadmap
 -
@@ -34,3 +34,11 @@ Roadmap
 - Support input Parameter (Maybe via CLI or GUI)
 - Browse JSON File from Directory 
 - GSL Logic Bug Fixed
+
+Remark
+-
+As this code is develop by myself with hope that can help anyone to use Cloudguard CSPM easier.
+
+By the way this project is work as best effort basis - so please bear with any bug occurred and please recheck and verify result by yourselves.
+
+Hope this help.
