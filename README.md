@@ -43,4 +43,6 @@ As this code is develop by myself with hope that can help anyone to use Cloudgua
 
 By the way this project is work as best effort basis - so please bear with any bug occurred and please recheck and verify result by yourselves.
 
-Hope this help.
+If you found any flaws or logic mismatch - Please feel free to inform me.
+
+Hope this help. and Thank you.
