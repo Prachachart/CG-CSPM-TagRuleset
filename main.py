@@ -1,11 +1,11 @@
-# This is a sample Python script.
+# CG-CSPM-TagRuleset
+# Author : Prachachart Stapornnanon
+# Contact : prachas@checkpoint.com
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 #Import Library
 import json
-import os
+
 
 #Declare Variable
 #Platform Selectiom 1.AWS 2.Azure 3.GCP
@@ -58,9 +58,6 @@ for i in data:
 
     #split logic string by should
     logicList = i["logic"].split("should",1)
-    #print(logicList[0])
-    #print(logicList[1])
-
 
     # If has where in logic
     if 'where' in i["logic"]:
@@ -82,8 +79,6 @@ print("=========================================================================
 print("Rule Count = " + str(ruleCount))
 print("==========================================Done==================================================")
 
-#print(NewData[0])
-#print(NewData[1])
 
 with open(jsonPath + '\\' + ExportFileName, 'w', encoding='utf-8') as output:
     json.dump(NewData, output, ensure_ascii=False, indent=4)
@@ -97,5 +92,5 @@ def print_hi(name):
 if __name__ == '__main__':
     print_hi('PyCharm')
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
 # Test Commit
